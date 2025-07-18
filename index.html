@@ -1,0 +1,2035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Atomic Universe | JAMB Chemistry Prep</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --secondary: #F59E0B;
+            --accent: #38BDF8;
+            --background: #F0F9FF;
+            --text-light: #1F2937;
+            --text-dark: #1F2937;
+            --glass: rgba(255, 255, 255, 0.4);
+            --glass-hover: rgba(255, 255, 255, 0.6);
+            --shadow: rgba(0, 0, 0, 0.15);
+            --glow: rgba(245, 158, 11, 0.6);
+            --correct: #10B981;
+            --incorrect: #EF4444;
+        }
+
+        [data-theme="night"] {
+            --primary: #1E40AF;
+            --secondary: #F59E0B;
+            --accent: #38BDF8;
+            --background: #0F172A;
+            --text-light: #E5E7EB;
+            --text-dark: #1F2937;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-hover: rgba(255, 255, 255, 0.2);
+            --shadow: rgba(0, 0, 0, 0.4);
+            --glow: rgba(245, 158, 11, 0.6);
+            --correct: #10B981;
+            --incorrect: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text-light);
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .cosmic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, rgba(56, 189, 248, 0.3) 0%, var(--background) 70%);
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: var(--text-light);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: twinkle 8s infinite linear;
+        }
+
+        @keyframes twinkle {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+
+        .mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mode-toggle:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .mode-toggle i {
+            font-size: 1.4rem;
+            color: var(--text-light);
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 1;
+            padding-bottom: 80px;
+            width: 100%;
+            max-width: 100%;
+            display: none;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 120px 20px 60px;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--text-light), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 8px var(--glow)); }
+            100% { filter: drop-shadow(0 0 20px var(--accent)); }
+        }
+
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            opacity: 0.85;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .knowledge-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 6px 20px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .knowledge-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px var(--shadow);
+            border-color: var(--secondary);
+        }
+
+        .knowledge-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .knowledge-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .knowledge-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .knowledge-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px var(--glow);
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .knowledge-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .knowledge-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--text-light);
+        }
+
+        .knowledge-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--secondary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .knowledge-link:hover {
+            color: var(--text-light);
+            transform: translateX(5px);
+        }
+
+        .detail-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            z-index: 1002;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .detail-container {
+            background: linear-gradient(135deg, var(--glass), rgba(56, 189, 248, 0.15));
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 6px 25px var(--shadow);
+            position: relative;
+            color: var(--text-light);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .detail-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.6rem, 4vw, 2rem);
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .detail-content {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        .detail-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: background 0.3s ease;
+        }
+
+        .detail-section:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .detail-subheader {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .detail-subheader::after {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background: var(--secondary);
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            border-radius: 1px;
+        }
+
+        .detail-list {
+            list-style-type: none;
+            padding-left: 15px;
+        }
+
+        .detail-list li {
+            position: relative;
+            margin-bottom: 10px;
+            padding-left: 15px;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            line-height: 1.7;
+            transition: color 0.3s ease;
+        }
+
+        .detail-list li:hover {
+            color: var(--secondary);
+        }
+
+        .detail-list li::before {
+            content: '⚛';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        .detail-list li strong {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .quiz-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .quiz-question {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 10px;
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--glass);
+            position: relative;
+        }
+
+        .quiz-option:hover {
+            background: var(--glass-hover);
+            border-color: var(--secondary);
+        }
+
+        .quiz-option input {
+            margin-right: 10px;
+        }
+
+        .quiz-option label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .quiz-option.correct::after {
+            content: '✔';
+            position: absolute;
+            right: 10px;
+            color: var(--correct);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .quiz-option.incorrect::after {
+            content: '✘';
+            position: absolute;
+            right: 10px;
+            color: var(--incorrect);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            display: none;
+        }
+
+        .quiz-result.success {
+            color: var(--correct);
+        }
+
+        .quiz-result.error {
+            color: var(--incorrect);
+        }
+
+        .submit-quiz, .close-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 15px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .submit-quiz:hover, .close-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px var(--glow);
+        }
+
+        footer {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-top: 2px solid var(--secondary);
+            padding: 20px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            display: none;
+        }
+
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--text-light);
+        }
+
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1003;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .password-container {
+            background: #003087;
+            border: 3px solid #FFD700;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .password-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FFD700;
+            margin-bottom: 20px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #FFD700;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background: #1E3A8A;
+            color: #E5E7EB;
+            outline: none;
+        }
+
+        .password-input::placeholder {
+            color: #A3BFFA;
+        }
+
+        .password-btn {
+            background: linear-gradient(135deg, #FFD700, #DAA520);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: #1E3A8A;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .password-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .password-error {
+            color: #EF4444;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                padding: 100px 15px 50px;
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 6vw, 3.5rem);
+            }
+
+            .knowledge-grid {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 20px;
+            }
+
+            .detail-container {
+                padding: 25px;
+                max-width: 700px;
+                max-height: 90vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 80px 15px 40px;
+            }
+
+            .hero-title {
+                font-size: clamp(1.8rem, 5vw, 3rem);
+            }
+
+            .section-title {
+                font-size: clamp(1.6rem, 4vw, 2rem);
+            }
+
+            .detail-container {
+                padding: 20px;
+                max-width: 95%;
+            }
+
+            .password-container {
+                padding: 20px;
+            }
+
+            .password-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .knowledge-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .knowledge-card {
+                padding: 20px;
+            }
+
+            .knowledge-title {
+                font-size: 1.3rem;
+            }
+
+            .detail-container {
+                padding: 15px;
+                max-width: 95%;
+            }
+
+            .detail-title {
+                font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+            }
+
+            .submit-quiz, .close-btn, .password-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease both;
+        }
+    </style>
+</head>
+<body data-theme="day">
+    <div class="password-overlay" id="passwordOverlay">
+        <div class="password-container">
+            <h3 class="password-title">Enter Password</h3>
+            <input type="password" class="password-input" id="passwordInput" placeholder="Enter password">
+            <button class="password-btn" onclick="verifyPassword()">Submit</button>
+            <div class="password-error" id="passwordError">Incorrect password. Please try again.</div>
+        </div>
+    </div>
+
+    <div class="cosmic-background">
+        <div class="stars" id="stars"></div>
+    </div>
+
+    <div class="mode-toggle" onclick="toggleTheme()">
+        <i class="fas fa-sun"></i>
+    </div>
+
+    <div class="main-container" id="mainContent">
+        <section class="hero">
+            <h1 class="hero-title">Atomic Universe</h1>
+            <p class="hero-subtitle">Master Atomic Structure for JAMB Success</p>
+        </section>
+
+        <div class="container">
+            <section class="section" id="atomic-structure">
+                <h2 class="section-title">Explore Atomic Structure</h2>
+                <div class="knowledge-grid">
+                    <div class="knowledge-card fade-in-up" data-knowledge="historical-models">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-history"></i></div>
+                            <h3 class="knowledge-title">Historical Models</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Trace the evolution from Dalton’s indivisible atoms to the quantum model.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('historical-models')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="subatomic-particles">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-atom"></i></div>
+                            <h3 class="knowledge-title">Subatomic Particles</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Dive into protons, neutrons, and electrons—the core of atoms.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('subatomic-particles')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="bohr-model">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-orbit"></i></div>
+                            <h3 class="knowledge-title">Bohr’s Model</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Explore quantized orbits and energy calculations for hydrogen.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('bohr-model')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="quantum-model">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-wave-square"></i></div>
+                            <h3 class="knowledge-title">Quantum Model</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Understand orbitals, quantum numbers, and electron behavior.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('quantum-model')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="atomic-spectra">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-lightbulb"></i></div>
+                            <h3 class="knowledge-title">Atomic Spectra</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Learn how atoms emit and absorb light.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('atomic-spectra')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="electron-configurations">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-cogs"></i></div>
+                            <h3 class="knowledge-title">Electron Configurations</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Master electron arrangements in multi-electron atoms.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('electron-configurations')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="atomic-properties">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-flask"></i></div>
+                            <h3 class="knowledge-title">Atomic Properties</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Explore atomic radius, ionization energy, and periodic trends.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('atomic-properties')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="nuclear-structure">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-radiation"></i></div>
+                            <h3 class="knowledge-title">Nuclear Structure</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Understand nuclear forces, isotopes, and radioactivity.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('nuclear-structure')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="nuclear-reactions">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-bolt"></i></div>
+                            <h3 class="knowledge-title">Nuclear Reactions</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Dive into fission, fusion, and energy release.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('nuclear-reactions')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="experimental-techniques">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-microscope"></i></div>
+                            <h3 class="knowledge-title">Experimental Techniques</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Discover tools like spectroscopy and STM.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('experimental-techniques')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="advanced-concepts">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-brain"></i></div>
+                            <h3 class="knowledge-title">Advanced Concepts</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Explore relativistic effects and exotic atoms.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('advanced-concepts')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="atomic-bonding">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-link"></i></div>
+                            <h3 class="knowledge-title">Atomic Structure & Bonding</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Learn how electron configurations drive chemical bonds.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('atomic-bonding')">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="practice-bank">
+                <h2 class="section-title">JAMB Practice Bank</h2>
+                <div class="quiz-container" id="quiz-practice-bank">
+                    <h4 class="detail-subheader">Test Your Knowledge</h4>
+                    <div class="quiz-question">1. What is the energy difference for a hydrogen electron transitioning from n=4 to n=2? (Use Eₙ = -13.6/n² eV)</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) 2.55 eV</label></div>
+                        <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) 3.40 eV</label></div>
+                        <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) 10.2 eV</label></div>
+                        <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) 12.1 eV</label></div>
+                    </div>
+                    <div class="quiz-question">2. Which scientist discovered the electron?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) Rutherford</label></div>
+                        <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) Thomson</label></div>
+                        <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) Bohr</label></div>
+                        <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) Dalton</label></div>
+                    </div>
+                    <div class="quiz-question">3. How many neutrons are in U-238?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) 92</label></div>
+                        <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) 146</label></div>
+                        <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) 238</label></div>
+                        <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) 330</label></div>
+                    </div>
+                    <div class="quiz-question">4. What is the azimuthal quantum number for a d orbital?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>a) 0</label></div>
+                        <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>b) 1</label></div>
+                        <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>c) 2</label></div>
+                        <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>d) 3</label></div>
+                    </div>
+                    <div class="quiz-question">5. What is the wavelength of a Balmer series transition from n=3 to n=2? (R = 1.097 × 10⁷ m⁻¹)</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>a) 656.3 nm</label></div>
+                        <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>b) 486.1 nm</label></div>
+                        <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>c) 121.6 nm</label></div>
+                        <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>d) 364.6 nm</label></div>
+                    </div>
+                    <div class="quiz-question">6. Why does ionization energy increase across a period?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option"><input type="radio" name="q6" value="a"> <label>a) Larger radius</label></div>
+                        <div class="quiz-option"><input type="radio" name="q6" value="b"> <label>b) Higher nuclear charge</label></div>
+                        <div class="quiz-option"><input type="radio" name="q6" value="c"> <label>c) More shells</label></div>
+                        <div class="quiz-option"><input type="radio" name="q6" value="d"> <label>d) Fewer electrons</label></div>
+                    </div>
+                    <div class="quiz-question">7. What type of radiation has the highest penetrating power?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option"><input type="radio" name="q7" value="a"> <label>a) Alpha</label></div>
+                        <div class="quiz-option"><input type="radio" name="q7" value="b"> <label>b) Beta</label></div>
+                        <div class="quiz-option"><input type="radio" name="q7" value="c"> <label>c) Gamma</label></div>
+                        <div class="quiz-option"><input type="radio" name="q7" value="d"> <label>d) Neutron</label></div>
+                    </div>
+                    <div class="quiz-question">8. What is the electron configuration of Cu (Z=29)?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option"><input type="radio" name="q8" value="a"> <label>a) [Ar]3d⁹4s²</label></div>
+                        <div class="quiz-option"><input type="radio" name="q8" value="b"> <label>b) [Ar]3d¹⁰4s¹</label></div>
+                        <div class="quiz-option"><input type="radio" name="q8" value="c"> <label>c) [Ar]3d⁸4s²</label></div>
+                        <div class="quiz-option"><input type="radio" name="q8" value="d"> <label>d) [Ar]3d¹⁰4s²</label></div>
+                    </div>
+                    <div class="quiz-question">9. Which technique uses electron tunneling to image atoms?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option"><input type="radio" name="q9" value="a"> <label>a) Spectroscopy</label></div>
+                        <div class="quiz-option"><input type="radio" name="q9" value="b"> <label>b) X-ray crystallography</label></div>
+                        <div class="quiz-option"><input type="radio" name="q9" value="c"> <label>c) STM</label></div>
+                        <div class="quiz-option"><input type="radio" name="q9" value="d"> <label>d) Mass spectrometry</label></div>
+                    </div>
+                    <div class="quiz-question">10. What causes the Zeeman effect?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option"><input type="radio" name="q10" value="a"> <label>a) Electric fields</label></div>
+                        <div class="quiz-option"><input type="radio" name="q10" value="b"> <label>b) Magnetic fields</label></div>
+                        <div class="quiz-option"><input type="radio" name="q10" value="c"> <label>c) Nuclear spin</label></div>
+                        <div class="quiz-option"><input type="radio" name="q10" value="d"> <label>d) Electron spin</label></div>
+                    </div>
+                    <button class="submit-quiz" onclick="checkQuiz('practice-bank', {q1: 'a', q2: 'b', q3: 'b', q4: 'c', q5: 'a', q6: 'b', q7: 'c', q8: 'b', q9: 'c', q10: 'b'})">Submit Quiz</button>
+                    <div class="quiz-result" id="result-practice-bank"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="detail-overlay" id="detailOverlay">
+            <div class="detail-container">
+                <h3 class="detail-title" id="detailTitle"></h3>
+                <div class="detail-content" id="detailContent"></div>
+                <button class="close-btn" onclick="closeDetail()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer">
+        Built with passion by <a href="https://wa.me/+2348128197651" target="_blank">Sisco Ask</a> | © <span id="footer-year"></span> Chemistry
+    </footer>
+
+    <script>
+        const knowledgeDetails = {
+            'historical-models': {
+                title: 'Historical Models of the Atom',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Overview</h4>
+                        <p>Understanding atomic structure began with philosophical ideas and evolved through scientific experiments, shaping modern chemistry.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Key Developments</h4>
+                        <ul class="detail-list">
+                            <li><strong>Democritus (5th Century BCE)</strong>: Proposed matter consists of indivisible "atomos," a philosophical concept without experimental support.</li>
+                            <li><strong>Dalton’s Atomic Theory (1803)</strong>: John Dalton formalized atoms as indivisible, unique to each element, combining in fixed ratios. Limitations: didn’t account for isotopes or subatomic particles.</li>
+                            <li><strong>Thomson’s Plum Pudding Model (1897)</strong>: J.J. Thomson discovered electrons via cathode ray tubes, proposing a positively charged sphere with embedded electrons.</li>
+                            <li><strong>Rutherford’s Nuclear Model (1911)</strong>: Gold foil experiment showed a dense, positive nucleus with orbiting electrons; most of the atom is empty space.</li>
+                            <li><strong>Bohr’s Model (1913)</strong>: Niels Bohr introduced quantized electron orbits, explaining hydrogen’s spectra with energy levels: Eₙ = -13.6/n² eV.</li>
+                            <li><strong>Quantum Mechanical Model (1920s)</strong>: Schrödinger, Heisenberg, and others described electrons as wave functions in orbitals, not fixed paths.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Common JAMB Mistakes</h4>
+                        <ul class="detail-list">
+                            <li><strong>Mistake</strong>: Thinking Dalton’s model included electrons. <strong>Fix</strong>: Dalton assumed atoms were indivisible, with no subatomic particles.</li>
+                            <li><strong>Mistake</strong>: Confusing Rutherford’s and Bohr’s models. <strong>Fix</strong>: Rutherford discovered the nucleus; Bohr added quantized orbits.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">JAMB Tip</h4>
+                        <p>Memorize the key scientists and their contributions. Questions often ask about Rutherford’s experiment or Bohr’s model for hydrogen.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Fun Fact</h4>
+                        <p>Rutherford’s gold foil experiment revealed atoms are 99.99% empty space—imagine a football field with a pea-sized nucleus!</p>
+                    </div>
+                    <div class="detail-section quiz-container" id="quiz-historical-models">
+                        <h4 class="detail-subheader">JAMB Practice Quiz</h4>
+                        <div class="quiz-question">1. Who proposed the idea of indivisible "atomos"?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) Dalton</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Democritus</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Rutherford</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Bohr</label></div>
+                        </div>
+                        <div class="quiz-question">2. What did Thomson’s model describe?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) Dense nucleus</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) Plum pudding model</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) Quantized orbits</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) Wave functions</label></div>
+                        </div>
+                        <div class="quiz-question">3. What did Rutherford’s gold foil experiment prove?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) Electrons are negative</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) Atoms have a nucleus</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) Atoms are indivisible</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) Electrons move in waves</label></div>
+                        </div>
+                        <div class="quiz-question">4. What is the energy formula for Bohr’s model?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>a) Eₙ = -13.6/n² eV</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>b) Eₙ = -13.6/n eV</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>c) Eₙ = 13.6/n² eV</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>d) Eₙ = 13.6/n eV</label></div>
+                        </div>
+                        <div class="quiz-question">5. Who developed the quantum mechanical model?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>a) Thomson</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>b) Rutherford</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>c) Schrödinger</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>d) Dalton</label></div>
+                        </div>
+                        <button class="submit-quiz" onclick="checkQuiz('historical-models', {q1: 'b', q2: 'b', q3: 'b', q4: 'a', q5: 'c'})">Submit Quiz</button>
+                        <div class="quiz-result" id="result-historical-models"></div>
+                    </div>
+                `
+            },
+            'subatomic-particles': {
+                title: 'Subatomic Particles',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Overview</h4>
+                        <p>Atoms are made of protons, neutrons, and electrons, each with distinct roles critical for JAMB questions on atomic identity and isotopes.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Particle Details</h4>
+                        <ul class="detail-list">
+                            <li><strong>Protons</strong>: Charge +1.602 × 10⁻¹⁹ C, mass 1.6726 × 10⁻²⁷ kg, in nucleus. Atomic number (Z) defines element (e.g., Z=8 for oxygen).</li>
+                            <li><strong>Neutrons</strong>: Neutral, mass 1.6749 × 10⁻²⁷ kg, in nucleus. Contribute to mass number (A = Z + N).</li>
+                            <li><strong>Electrons</strong>: Charge -1.602 × 10⁻¹⁹ C, mass 9.1094 × 10⁻³¹ kg, in orbitals. Determine chemical reactivity.</li>
+                            <li><strong>Isotopes</strong>: Same Z, different N (e.g., Carbon-12: 6p, 6n; Carbon-14: 6p, 8n).</li>
+                            <li><strong>Atomic Mass</strong>: Weighted average of isotope masses in amu (1 amu = 1.66054 × 10⁻²⁷ kg).</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Common JAMB Mistakes</h4>
+                        <ul class="detail-list">
+                            <li><strong>Mistake</strong>: Confusing atomic number (Z) with mass number (A). <strong>Fix</strong>: Z = protons, A = protons + neutrons.</li>
+                            <li><strong>Mistake</strong>: Thinking isotopes differ in chemical properties. <strong>Fix</strong>: Isotopes have same Z, so chemical properties are nearly identical.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Example Calculation</h4>
+                        <p>Calculate the number of neutrons in U-238 (Z=92).</p>
+                        <ul class="detail-list">
+                            <li><strong>Step 1</strong>: Mass number (A) = 238, atomic number (Z) = 92.</li>
+                            <li><strong>Step 2</strong>: Neutrons = A - Z = 238 - 92 = 146 neutrons.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">JAMB Tip</h4>
+                        <p>Practice calculating mass number and identifying isotopes. Questions often involve comparing isotopes like U-235 and U-238.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Fun Fact</h4>
+                        <p>An electron is so light it’s like comparing a feather to a car—1836 electrons equal one proton’s mass!</p>
+                    </div>
+                    <div class="detail-section quiz-container" id="quiz-subatomic-particles">
+                        <h4 class="detail-subheader">JAMB Practice Quiz</h4>
+                        <div class="quiz-question">1. What determines an element’s identity?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) Electron</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Proton</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Neutron</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Nucleus</label></div>
+                        </div>
+                        <div class="quiz-question">2. What is the charge of a neutron?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) Positive</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) Negative</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) Neutral</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) Variable</label></div>
+                        </div>
+                        <div class="quiz-question">3. What is the mass number of Carbon-14?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) 6</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) 12</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) 14</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) 20</label></div>
+                        </div>
+                        <div class="quiz-question">4. Which particle is found outside the nucleus?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>a) Proton</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>b) Neutron</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>c) Electron</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>d) Nucleon</label></div>
+                        </div>
+                        <div class="quiz-question">5. How many neutrons does Oxygen-16 have?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>a) 6</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>b) 8</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>c) 10</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>d) 16</label></div>
+                        </div>
+                        <button class="submit-quiz" onclick="checkQuiz('subatomic-particles', {q1: 'b', q2: 'c', q3: 'c', q4: 'c', q5: 'b'})">Submit Quiz</button>
+                        <div class="quiz-result" id="result-subatomic-particles"></div>
+                    </div>
+                `
+            },
+            'bohr-model': {
+                title: 'Bohr’s Model of the Atom',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Overview</h4>
+                        <p>Niels Bohr’s model introduced quantized electron orbits, crucial for understanding hydrogen’s spectra and energy levels in JAMB.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Key Concepts</h4>
+                        <ul class="detail-list">
+                            <li><strong>Quantized Orbits</strong>: Electrons orbit the nucleus in fixed energy levels (n=1, 2, 3, …).</li>
+                            <li><strong>Energy Levels</strong>: Eₙ = -13.6/n² eV for hydrogen.</li>
+                            <li><strong>Orbit Radius</strong>: rₙ = n²a₀, where a₀ = 5.29 × 10⁻¹¹ m (Bohr radius).</li>
+                            <li><strong>Energy Transitions</strong>: ΔE = E₂ - E₁ = hν, where ν is photon frequency.</li>
+                            <li><strong>Limitations</strong>: Accurate for hydrogen; less so for multi-electron atoms.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Example Calculation</h4>
+                        <p>Calculate the energy emitted when an electron in hydrogen transitions from n=4 to n=2.</p>
+                        <ul class="detail-list">
+                            <li><strong>Step 1</strong>: Eₙ = -13.6/n² eV. For n=4: E₄ = -13.6/4² = -0.85 eV. For n=2: E₂ = -13.6/2² = -3.4 eV.</li>
+                            <li><strong>Step 2</strong>: ΔE = E₂ - E₄ = -3.4 - (-0.85) = -2.55 eV (energy emitted = 2.55 eV).</li>
+                            <li><strong>Step 3</strong>: This corresponds to a Balmer series transition (visible light).</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Common JAMB Mistakes</h4>
+                        <ul class="detail-list">
+                            <li><strong>Mistake</strong>: Forgetting the negative sign in Eₙ = -13.6/n². <strong>Fix</strong>: Energy levels are negative relative to ionized state (E=0).</li>
+                            <li><strong>Mistake</strong>: Applying Bohr’s model to multi-electron atoms. <strong>Fix</strong>: Use quantum model for complex atoms.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">JAMB Tip</h4>
+                        <p>Practice energy transition calculations and memorize the Bohr radius (5.29 × 10⁻¹¹ m).</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Fun Fact</h4>
+                        <p>Bohr’s model explained why hydrogen glows specific colors in a discharge tube!</p>
+                    </div>
+                    <div class="detail-section quiz-container" id="quiz-bohr-model">
+                        <h4 class="detail-subheader">JAMB Practice Quiz</h4>
+                        <div class="quiz-question">1. What is the energy of an electron in n=3 for hydrogen?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) -1.51 eV</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) -3.4 eV</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) -13.6 eV</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) -0.85 eV</label></div>
+                        </div>
+                        <div class="quiz-question">2. What is the Bohr radius?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) 5.29 × 10⁻¹¹ m</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) 1.097 × 10⁷ m⁻¹</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) 6.626 × 10⁻³⁴ J·s</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) 1.602 × 10⁻¹⁹ C</label></div>
+                        </div>
+                        <div class="quiz-question">3. What happens when an electron jumps from n=2 to n=1?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) Photon absorbed</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) Photon emitted</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) No energy change</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) Electron ejected</label></div>
+                        </div>
+                        <div class="quiz-question">4. What is the radius of n=2 orbit in hydrogen?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>a) 5.29 × 10⁻¹¹ m</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>b) 2.12 × 10⁻¹⁰ m</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>c) 1.06 × 10⁻¹⁰ m</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>d) 4.23 × 10⁻¹⁰ m</label></div>
+                        </div>
+                        <div class="quiz-question">5. Bohr’s model is most accurate for which atom?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>a) Helium</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>b) Hydrogen</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>c) Lithium</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>d) Carbon</label></div>
+                        </div>
+                        <button class="submit-quiz" onclick="checkQuiz('bohr-model', {q1: 'a', q2: 'a', q3: 'b', q4: 'b', q5: 'b'})">Submit Quiz</button>
+                        <div class="quiz-result" id="result-bohr-model"></div>
+                    </div>
+                `
+            },
+            'quantum-model': {
+                title: 'Quantum Mechanical Model',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Overview</h4>
+                        <p>The quantum model describes electrons as probability waves in orbitals, governed by quantum numbers, crucial for JAMB electron configuration questions.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Key Concepts</h4>
+                        <ul class="detail-list">
+                            <li><strong>Wave-Particle Duality</strong>: Electrons exhibit wave and particle properties (de Broglie, λ = h/p).</li>
+                            <li><strong>Schrödinger Equation</strong>: Ĥψ = Eψ defines electron wave functions and energy levels.</li>
+                            <li><strong>Quantum Numbers</strong>:
+                                <ul class="detail-list">
+                                    <li>Principal (n): Energy level (n=1, 2, 3, …).</li>
+                                    <li>Azimuthal (l): Orbital shape (l=0 to n-1; s=0, p=1, d=2, f=3).</li>
+                                    <li>Magnetic (mₗ): Orientation (-l to +l).</li>
+                                    <li>Spin (mₛ): ±1/2.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Pauli Exclusion Principle</strong>: No two electrons have identical quantum numbers.</li>
+                            <li><strong>Orbitals</strong>: s (2 electrons), p (6), d (10), f (14). Maximum electrons per shell: 2n².</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Common JAMB Mistakes</h4>
+                        <ul class="detail-list">
+                            <li><strong>Mistake</strong>: Confusing orbital types (e.g., thinking p has 2 electrons). <strong>Fix</strong>: s=2, p=6, d=10, f=14 electrons.</li>
+                            <li><strong>Mistake</strong>: Ignoring Pauli’s principle. <strong>Fix</strong>: Each orbital holds 2 electrons with opposite spins.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">JAMB Tip</h4>
+                        <p>Memorize quantum number rules and orbital capacities. Questions often test the Pauli principle or orbital types.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Fun Fact</h4>
+                        <p>Orbitals are like electron dance floors—probability clouds where electrons groove, not fixed paths!</p>
+                    </div>
+                    <div class="detail-section quiz-container" id="quiz-quantum-model">
+                        <h4 class="detail-subheader">JAMB Practice Quiz</h4>
+                        <div class="quiz-question">1. What does the principal quantum number (n) describe?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) Orbital shape</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Energy level</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Orbital orientation</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Electron spin</label></div>
+                        </div>
+                        <div class="quiz-question">2. How many electrons can a d subshell hold?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) 2</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) 6</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) 10</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) 14</label></div>
+                        </div>
+                        <div class="quiz-question">3. What does the Pauli Exclusion Principle state?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) Electrons fill lowest energy orbitals first</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) No two electrons have the same quantum numbers</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) Electrons have wave properties</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) Orbitals are spherical</label></div>
+                        </div>
+                        <div class="quiz-question">4. What is the azimuthal quantum number for a p orbital?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>a) 0</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>b) 1</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>c) 2</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>d) 3</label></div>
+                        </div>
+                        <div class="quiz-question">5. How many orbitals are in the n=2 energy level?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>a) 1</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>b) 2</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>c) 4</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>d) 8</label></div>
+                        </div>
+                        <button class="submit-quiz" onclick="checkQuiz('quantum-model', {q1: 'b', q2: 'c', q3: 'b', q4: 'b', q5: 'c'})">Submit Quiz</button>
+                        <div class="quiz-result" id="result-quantum-model"></div>
+                    </div>
+                `
+            },
+            'atomic-spectra': {
+                title: 'Atomic Spectra',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Overview</h4>
+                        <p>Atomic spectra arise from electrons transitioning between energy levels, emitting or absorbing light, key for JAMB spectroscopy questions.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Key Concepts</h4>
+                        <ul class="detail-list">
+                            <li><strong>Emission Spectra</strong>: Electrons drop to lower energy levels, emitting photons (E = hν).</li>
+                            <li><strong>Absorption Spectra</strong>: Electrons absorb photons to jump to higher levels, creating dark lines.</li>
+                            <li><strong>Hydrogen Spectrum</strong>: Series like Lyman (UV, n=1), Balmer (visible, n=2). Formula: 1/λ = R(1/n₁² - 1/n₂²), R = 1.097 × 10⁷ m⁻¹.</li>
+                            <li><strong>Applications</strong>: Identifies elements in stars, used in atomic absorption spectroscopy.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Example Calculation</h4>
+                        <p>Calculate the wavelength of light emitted when an electron in hydrogen transitions from n=3 to n=2 (Balmer series).</p>
+                        <ul class="detail-list">
+                            <li><strong>Step 1</strong>: Use 1/λ = R(1/n₁² - 1/n₂²), R = 1.097 × 10⁷ m⁻¹, n₁=2, n₂=3.</li>
+                            <li><strong>Step 2</strong>: 1/λ = 1.097 × 10⁷ (1/2² - 1/3²) = 1.097 × 10⁷ (1/4 - 1/9) = 1.097 × 10⁷ × 5/36 = 1.5236 × 10⁶ m⁻¹.</li>
+                            <li><strong>Step 3</strong>: λ = 1 / 1.5236 × 10⁶ = 6.563 × 10⁻⁷ m = 656.3 nm (red light).</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Common JAMB Mistakes</h4>
+                        <ul class="detail-list">
+                            <li><strong>Mistake</strong>: Confusing emission and absorption spectra. <strong>Fix</strong>: Emission shows bright lines; absorption shows dark lines.</li>
+                            <li><strong>Mistake</strong>: Using wrong n₁ for spectral series. <strong>Fix</strong>: Lyman (n₁=1), Balmer (n₁=2).</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">JAMB Tip</h4>
+                        <p>Understand the Balmer series for visible light and practice spectral line calculations using the Rydberg formula.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Fun Fact</h4>
+                        <p>The colors in fireworks come from atomic spectra—strontium glows red, sodium yellow!</p>
+                    </div>
+                    <div class="detail-section quiz-container" id="quiz-atomic-spectra">
+                        <h4 class="detail-subheader">JAMB Practice Quiz</h4>
+                        <div class="quiz-question">1. What causes emission spectra?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) Electron absorption</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Electron emission</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Proton movement</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Neutron decay</label></div>
+                        </div>
+                        <div class="quiz-question">2. Which series is in the visible spectrum?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) Lyman</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) Balmer</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) Paschen</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) Brackett</label></div>
+                        </div>
+                        <div class="quiz-question">3. What is the Rydberg constant?</div>
+                                                   <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) 1.097 × 10⁷ m⁻¹</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) 6.626 × 10⁻³⁴ J·s</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) 9.109 × 10⁻³¹ kg</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) 1.602 × 10⁻¹⁹ C</label></div>
+                        </div>
+                        <div class="quiz-question">4. Which series corresponds to transitions ending at n=1?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>a) Balmer</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>b) Lyman</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>c) Paschen</label></div>
+                            <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>d) Brackett</label></div>
+                        </div>
+                        <div class="quiz-question">5. What type of light is emitted in the Balmer series?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>a) Ultraviolet</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>b) Visible</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>c) Infrared</label></div>
+                            <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>d) X-ray</label></div>
+                        </div>
+                        <button class="submit-quiz" onclick="checkQuiz('atomic-spectra', {q1: 'b', q2: 'b', q3: 'a', q4: 'b', q5: 'b'})">Submit Quiz</button>
+                        <div class="quiz-result" id="result-atomic-spectra"></div>
+                    </div>
+                `
+            },
+            'electron-configurations': {
+        title: 'Electron Configurations',
+        content: `
+            <div class="detail-section">
+                <h4 class="detail-subheader">Overview</h4>
+                <p>Electron configurations describe how electrons occupy orbitals, critical for understanding chemical reactivity in JAMB.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Key Concepts</h4>
+                <ul class="detail-list">
+                    <li><strong>Aufbau Principle</strong>: Electrons fill orbitals from lowest to highest energy (1s, 2s, 2p, 3s, 3p, 4s, 3d, …).</li>
+                    <li><strong>Hund’s Rule</strong>: Electrons occupy degenerate orbitals singly with parallel spins before pairing.</li>
+                    <li><strong>Pauli Exclusion Principle</strong>: Each orbital holds two electrons with opposite spins.</li>
+                    <li><strong>Exceptions</strong>: Cr ([Ar]3d⁵4s¹), Cu ([Ar]3d¹⁰4s¹) due to stability of half-filled/full d subshells.</li>
+                    <li><strong>Shielding Effect</strong>: Inner electrons reduce nuclear attraction for outer electrons.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Example</h4>
+                <p>Write the electron configuration for Sodium (Na, Z=11).</p>
+                <ul class="detail-list">
+                    <li><strong>Step 1</strong>: Follow Aufbau order: 1s²2s²2p⁶3s¹.</li>
+                    <li><strong>Step 2</strong>: Verify: 2 + 2 + 6 + 1 = 11 electrons.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Common JAMB Mistakes</h4>
+                <ul class="detail-list">
+                    <li><strong>Mistake</strong>: Writing 4s before 3d for transition metals. <strong>Fix</strong>: 4s fills before 3d (e.g., Fe: [Ar]3d⁶4s²).</li>
+                    <li><strong>Mistake</strong>: Forgetting exceptions like Cr and Cu. <strong>Fix</strong>: Memorize Cr ([Ar]3d⁵4s¹), Cu ([Ar]3d¹⁰4s¹).</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">JAMB Tip</h4>
+                <p>Practice configurations for elements 1-30, especially exceptions. Questions may ask for noble gas notation.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Fun Fact</h4>
+                <p>Copper’s unique configuration ([Ar]3d¹⁰4s¹) gives it its shiny, reddish hue!</p>
+            </div>
+            <div class="detail-section quiz-container" id="quiz-electron-configurations">
+                <h4 class="detail-subheader">JAMB Practice Quiz</h4>
+                <div class="quiz-question">1. What is the electron configuration of Oxygen (Z=8)?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) 1s²2s²2p²</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) 1s²2s²2p⁴</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) 1s²2s²2p⁶</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) 1s²2s²2p³</label></div>
+                </div>
+                <div class="quiz-question">2. Which principle states electrons fill lowest energy orbitals first?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) Pauli</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) Hund</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) Aufbau</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) Heisenberg</label></div>
+                </div>
+                <div class="quiz-question">3. What is the configuration of Chromium (Z=24)?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) [Ar]3d⁴4s²</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) [Ar]3d⁵4s¹</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) [Ar]3d⁶4s²</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) [Ar]3d⁵4s²</label></div>
+                </div>
+                <div class="quiz-question">4. How many electrons are in a full 3p subshell?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>a) 2</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>b) 6</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>c) 10</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>d) 14</label></div>
+                </div>
+                <div class="quiz-question">5. What reduces the nuclear attraction for outer electrons?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>a) Pauli principle</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>b) Shielding effect</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>c) Hund’s rule</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>d) Aufbau principle</label></div>
+                </div>
+                <button class="submit-quiz" onclick="checkQuiz('electron-configurations', {q1: 'b', q2: 'c', q3: 'b', q4: 'b', q5: 'b'})">Submit Quiz</button>
+                <div class="quiz-result" id="result-electron-configurations"></div>
+            </div>
+        `
+    },
+    'atomic-properties': {
+        title: 'Atomic Properties',
+        content: `
+            <div class="detail-section">
+                <h4 class="detail-subheader">Overview</h4>
+                <p>Atomic properties like radius and ionization energy determine chemical behavior, frequently tested in JAMB.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Key Properties</h4>
+                <ul class="detail-list">
+                    <li><strong>Atomic Radius</strong>: Decreases across a period (higher nuclear charge), increases down a group (more shells).</li>
+                    <li><strong>Ionization Energy</strong>: Energy to remove an electron; increases across a period, decreases down a group.</li>
+                    <li><strong>Electron Affinity</strong>: Energy change when an electron is gained; more negative across a period.</li>
+                    <li><strong>Electronegativity</strong>: Tendency to attract electrons in a bond (e.g., F: 3.98, Pauling scale).</li>
+                    <li><strong>Periodic Trends</strong>: Group 1 (low IE, high reactivity); Group 17 (high EN, form bonds like NaCl, HCl).</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Periodic Trends and Reactivity</h4>
+                <ul class="detail-list">
+                    <li><strong>Group 1 (Alkali Metals)</strong>: Low ionization energy (e.g., Na: 496 kJ/mol), highly reactive (e.g., Na + H₂O → NaOH + H₂).</li>
+                    <li><strong>Group 17 (Halogens)</strong>: High electronegativity (e.g., F: 3.98), form ionic/covalent bonds.</li>
+                    <li><strong>Period 3</strong>: Na to Ar, radius decreases, IE increases, reactivity shifts from metallic to non-metallic.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Common JAMB Mistakes</h4>
+                <ul class="detail-list">
+                    <li><strong>Mistake</strong>: Thinking radius increases across a period. <strong>Fix</strong>: Radius decreases due to higher nuclear charge.</li>
+                    <li><strong>Mistake</strong>: Confusing IE with EA. <strong>Fix</strong>: IE is energy to remove; EA is energy to gain an electron.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">JAMB Tip</h4>
+                <p>Compare properties across periods and groups (e.g., Na vs. Cl, Li vs. Na) for exam questions.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Fun Fact</h4>
+                <p>Fluorine’s high electronegativity makes it the most reactive non-metal, grabbing electrons like a cosmic magnet!</p>
+            </div>
+            <div class="detail-section quiz-container" id="quiz-atomic-properties">
+                <h4 class="detail-subheader">JAMB Practice Quiz</h4>
+                <div class="quiz-question">1. Why does atomic radius decrease across a period?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) More electrons</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Higher nuclear charge</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Fewer shells</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Lower shielding</label></div>
+                </div>
+                <div class="quiz-question">2. Which element has the highest electronegativity?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) Sodium</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) Chlorine</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) Fluorine</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) Oxygen</label></div>
+                </div>
+                <div class="quiz-question">3. What happens to ionization energy down a group?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) Increases</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) Decreases</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) Remains constant</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) Doubles</label></div>
+                </div>
+                <div class="quiz-question">4. Which group is most reactive with water?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>a) Group 1</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>b) Group 2</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>c) Group 17</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>d) Group 18</label></div>
+                </div>
+                <div class="quiz-question">5. What is electron affinity?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>a) Energy to remove an electron</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>b) Energy to gain an electron</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>c) Nuclear attraction</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>d) Orbital energy</label></div>
+                </div>
+                <button class="submit-quiz" onclick="checkQuiz('atomic-properties', {q1: 'b', q2: 'c', q3: 'b', q4: 'a', q5: 'b'})">Submit Quiz</button>
+                <div class="quiz-result" id="result-atomic-properties"></div>
+            </div>
+        `
+    },
+    'nuclear-structure': {
+        title: 'Nuclear Structure',
+        content: `
+            <div class="detail-section">
+                <h4 class="detail-subheader">Overview</h4>
+                <p>The nucleus, made of protons and neutrons, is key to understanding isotopes and radioactivity, often tested in JAMB.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Key Concepts</h4>
+                <ul class="detail-list">
+                    <li><strong>Nuclear Forces</strong>: Strong nuclear force binds protons and neutrons, overcoming proton repulsion.</li>
+                    <li><strong>Isotopes</strong>: Same protons, different neutrons (e.g., C-12: 6p, 6n; C-14: 6p, 8n).</li>
+                    <li><strong>Radioactivity</strong>: Unstable nuclei decay via alpha (⁴He), beta (e⁻ or e⁺), or gamma (γ) emission.</li>
+                    <li><strong>Half-Life</strong>: Time for half a radioactive sample to decay (e.g., C-14: 5730 years).</li>
+                    <li><strong>Binding Energy</strong>: Energy from mass defect (E=Δmc²), stabilizes nucleus.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Example Calculation</h4>
+                <p>Calculate the remaining mass of C-14 (t₁/₂ = 5730 years) after 11,460 years, starting with 1 g.</p>
+                <ul class="detail-list">
+                    <li><strong>Step 1</strong>: Number of half-lives = 11,460 / 5730 = 2.</li>
+                    <li><strong>Step 2</strong>: Mass remaining = initial mass × (1/2)ⁿ = 1 × (1/2)² = 0.25 g.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Isotope Applications</h4>
+                <ul class="detail-list">
+                    <li><strong>Carbon-14 Dating</strong>: Dates organic materials up to 50,000 years.</li>
+                    <li><strong>Medical</strong>: Tc-99m for imaging, I-131 for thyroid treatment.</li>
+                    <li><strong>Industrial</strong>: Am-241 in smoke detectors, Co-60 for sterilization.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Common JAMB Mistakes</h4>
+                <ul class="detail-list">
+                    <li><strong>Mistake</strong>: Confusing alpha and beta decay. <strong>Fix</strong>: Alpha is ⁴He (2p, 2n); beta is electron or positron emission.</li>
+                    <li><strong>Mistake</strong>: Miscalculating half-life. <strong>Fix</strong>: Divide total time by half-life to find n, then use (1/2)ⁿ.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">JAMB Tip</h4>
+                <p>Practice balancing nuclear equations and half-life calculations. Know isotope applications like C-14 dating.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Fun Fact</h4>
+                <p>The nucleus is tiny but mighty—99.9% of an atom’s mass in a space 100,000 times smaller than the atom!</p>
+            </div>
+            <div class="detail-section quiz-container" id="quiz-nuclear-structure">
+                <h4 class="detail-subheader">JAMB Practice Quiz</h4>
+                <div class="quiz-question">1. What force holds the nucleus together?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) Electromagnetic</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Strong nuclear</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Gravitational</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Weak nuclear</label></div>
+                </div>
+                <div class="quiz-question">2. What is emitted in alpha decay?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) Electron</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) Helium nucleus</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) Gamma ray</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) Proton</label></div>
+                </div>
+                <div class="quiz-question">3. What is the half-life of C-14?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) 573 years</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) 5730 years</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) 57,300 years</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) 5.73 years</label></div>
+                </div>
+                <div class="quiz-question">4. What is the binding energy related to?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>a) Electron orbits</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>b) Mass defect</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>c) Orbital shape</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>d) Chemical bonds</label></div>
+                </div>
+                <div class="quiz-question">5. Which isotope is used in carbon dating?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>a) C-12</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>b) C-14</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>c) C-13</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>d) C-16</label></div>
+                </div>
+                <button class="submit-quiz" onclick="checkQuiz('nuclear-structure', {q1: 'b', q2: 'b', q3: 'b', q4: 'b', q5: 'b'})">Submit Quiz</button>
+                <div class="quiz-result" id="result-nuclear-structure"></div>
+            </div>
+        `
+    },
+    'nuclear-reactions': {
+        title: 'Nuclear Reactions',
+        content: `
+            <div class="detail-section">
+                <h4 class="detail-subheader">Overview</h4>
+                <p>Nuclear reactions like fission and fusion release energy, relevant for JAMB questions on radioactivity and energy.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Key Concepts</h4>
+                <ul class="detail-list">
+                    <li><strong>Fission</strong>: Splitting heavy nuclei (e.g., U-235 → Ba-141 + Kr-92 + 3n), releases energy.</li>
+                    <li><strong>Fusion</strong>: Combining light nuclei (e.g., ²H + ³H → ⁴He + n), powers stars.</li>
+                    <li><strong>Mass Defect</strong>: Difference between reactant and product masses, converted to energy (E=Δmc²).</li>
+                    <li><strong>Applications</strong>: Nuclear power (fission), hydrogen bombs (fusion), medical isotopes.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Example Calculation</h4>
+                <p>Calculate the energy released in fission of U-235 (mass defect = 0.2 amu, 1 amu = 931.5 MeV/c²).</p>
+                <ul class="detail-list">
+                    <li><strong>Step 1</strong>: E = Δm × c² = 0.2 × 931.5 = 186.3 MeV.</li>
+                    <li><strong>Step 2</strong>: This energy powers nuclear reactors.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Common JAMB Mistakes</h4>
+                <ul class="detail-list">
+                    <li><strong>Mistake</strong>: Confusing fission and fusion. <strong>Fix</strong>: Fission splits heavy nuclei; fusion combines light ones.</li>
+                    <li><strong>Mistake</strong>: Forgetting to balance nuclear equations. <strong>Fix</strong>: Ensure mass and atomic numbers are conserved.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">JAMB Tip</h4>
+                <p>Learn key nuclear reactions and their products. Questions may involve balancing nuclear equations.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Fun Fact</h4>
+                <p>Fusion powers the sun, making life possible—every second, it fuses 600 million tons of hydrogen!</p>
+            </div>
+            <div class="detail-section quiz-container" id="quiz-nuclear-reactions">
+                <h4 class="detail-subheader">JAMB Practice Quiz</h4>
+                <div class="quiz-question">1. What is nuclear fission?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) Combining nuclei</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Splitting nuclei</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Electron emission</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Proton transfer</label></div>
+                </div>
+                <div class="quiz-question">2. What powers the sun?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) Fission</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) Fusion</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) Alpha decay</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) Beta decay</label></div>
+                </div>
+                <div class="quiz-question">3. What is the source of energy in nuclear reactions?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) Electron movement</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) Mass defect</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) Orbital filling</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) Chemical bonds</label></div>
+                </div>
+                <div class="quiz-question">4. Which isotope is commonly used in nuclear fission?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>a) U-238</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>b) U-235</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>c) C-14</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>d) H-3</label></div>
+                </div>
+                <div class="quiz-question">5. What is the product of the fusion reaction ²H + ³H?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>a) ⁴He + n</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>b) ⁴He + p</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>c) ³He + n</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>d) ²H + p</label></div>
+                </div>
+                <button class="submit-quiz" onclick="checkQuiz('nuclear-reactions', {q1: 'b', q2: 'b', q3: 'b', q4: 'b', q5: 'a'})">Submit Quiz</button>
+                <div class="quiz-result" id="result-nuclear-reactions"></div>
+            </div>
+        `
+    },
+    'experimental-techniques': {
+        title: 'Experimental Techniques',
+        content: `
+            <div class="detail-section">
+                <h4 class="detail-subheader">Overview</h4>
+                <p>Modern techniques reveal atomic structure, critical for JAMB questions on spectroscopy and imaging.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Key Techniques</h4>
+                <ul class="detail-list">
+                    <li><strong>Spectroscopy</strong>: Analyzes light emission/absorption to determine energy levels.</li>
+                    <li><strong>X-Ray Crystallography</strong>: Maps electron density in crystals to study atomic arrangements.</li>
+                    <li><strong>Scanning Tunneling Microscopy (STM)</strong>: Visualizes individual atoms via electron tunneling.</li>
+                    <li><strong>Particle Accelerators</strong>: Probe nuclear structure through high-energy collisions.</li>
+                    <li><strong>Mass Spectrometry</strong>: Measures isotopic masses and compositions.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Common JAMB Mistakes</h4>
+                <ul class="detail-list">
+                    <li><strong>Mistake</strong>: Confusing spectroscopy with mass spectrometry. <strong>Fix</strong>: Spectroscopy analyzes light; mass spectrometry measures mass-to-charge ratios.</li>
+                    <li><strong>Mistake</strong>: Thinking STM measures crystal structure. <strong>Fix</strong>: STM images surfaces; X-ray crystallography studies crystals.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">JAMB Tip</h4>
+                <p>Focus on spectroscopy and its applications, as JAMB often tests how it identifies elements.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Fun Fact</h4>
+                <p>STM can arrange atoms to spell words, like IBM’s logo made of xenon atoms!</p>
+            </div>
+            <div class="detail-section quiz-container" id="quiz-experimental-techniques">
+                <h4 class="detail-subheader">JAMB Practice Quiz</h4>
+                <div class="quiz-question">1. What does spectroscopy analyze?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) Atomic mass</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Light emission/absorption</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Nuclear charge</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Electron spin</label></div>
+                </div>
+                <div class="quiz-question">2. Which technique visualizes individual atoms?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) Mass spectrometry</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) X-ray crystallography</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) STM</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) Particle acceleration</label></div>
+                </div>
+                <div class="quiz-question">3. What is the principle behind STM?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) Light absorption</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) Electron tunneling</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) Nuclear fission</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) X-ray diffraction</label></div>
+                </div>
+                <div class="quiz-question">4. What does mass spectrometry measure?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>a) Electron energy levels</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>b) Isotopic masses</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>c) Orbital shapes</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>d) Nuclear spin</label></div>
+                </div>
+                <div class="quiz-question">5. Which technique is used to study crystal structures?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>a) Spectroscopy</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>b) X-ray crystallography</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>c) STM</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>d) Particle accelerators</label></div>
+                </div>
+                <button class="submit-quiz" onclick="checkQuiz('experimental-techniques', {q1: 'b', q2: 'c', q3: 'b', q4: 'b', q5: 'b'})">Submit Quiz</button>
+                <div class="quiz-result" id="result-experimental-techniques"></div>
+            </div>
+        `
+    },
+    'advanced-concepts': {
+        title: 'Advanced Concepts in Atomic Structure',
+        content: `
+            <div class="detail-section">
+                <h4 class="detail-subheader">Overview</h4>
+                <p>Advanced topics like relativistic effects and exotic atoms deepen understanding, occasionally tested in JAMB for high-achievers.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Key Concepts</h4>
+                <ul class="detail-list">
+                    <li><strong>Relativistic Effects</strong>: In heavy atoms (e.g., gold), inner electrons move near light speed, affecting properties like color.</li>
+                    <li><strong>Exotic Atoms</strong>: Replace electrons with muons or positrons (e.g., muonium, positronium).</li>
+                    <li><strong>Zeeman Effect</strong>: Splitting of spectral lines in magnetic fields.</li>
+                    <li><strong>Stark Effect</strong>: Splitting of spectral lines in electric fields.</li>
+                    <li><strong>Hyperfine Structure</strong>: Small energy level splits due to nuclear spin interactions.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Common JAMB Mistakes</h4>
+                <ul class="detail-list">
+                    <li><strong>Mistake</strong>: Confusing Zeeman and Stark effects. <strong>Fix</strong>: Zeeman is magnetic; Stark is electric.</li>
+                    <li><strong>Mistake</strong>: Thinking relativistic effects apply to light atoms. <strong>Fix</strong>: They’re significant in heavy atoms like Au, Hg.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">JAMB Tip</h4>
+                <p>Focus on relativistic effects for heavy elements, as JAMB may ask why gold is yellow.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Fun Fact</h4>
+                <p>Gold’s yellow color comes from relativistic effects slowing its inner electrons, altering light absorption!</p>
+            </div>
+            <div class="detail-section quiz-container" id="quiz-advanced-concepts">
+                <h4 class="detail-subheader">JAMB Practice Quiz</h4>
+                <div class="quiz-question">1. What causes gold’s yellow color?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) Electron configuration</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Relativistic effects</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Nuclear spin</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Orbital shape</label></div>
+                </div>
+                <div class="quiz-question">2. What is an exotic atom?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) Atom with extra protons</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) Atom with muons or positrons</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) Atom with no neutrons</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) Atom with high spin</label></div>
+                </div>
+                <div class="quiz-question">3. What does the Zeeman effect describe?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) Splitting in electric fields</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) Splitting in magnetic fields</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) Electron tunneling</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) Nuclear decay</label></div>
+                </div>
+                <div class="quiz-question">4. What causes the Stark effect?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>a) Magnetic fields</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>b) Electric fields</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>c) Nuclear forces</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>d) Electron spin</label></div>
+                </div>
+                <div class="quiz-question">5. What is hyperfine structure due to?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>a) Orbital shapes</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>b) Nuclear spin interactions</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>c) Electron pairing</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>d) Mass defect</label></div>
+                </div>
+                <button class="submit-quiz" onclick="checkQuiz('advanced-concepts', {q1: 'b', q2: 'b', q3: 'b', q4: 'b', q5: 'b'})">Submit Quiz</button>
+                <div class="quiz-result" id="result-advanced-concepts"></div>
+            </div>
+        `
+    },
+    'atomic-bonding': {
+        title: 'Atomic Structure & Bonding',
+        content: `
+            <div class="detail-section">
+                <h4 class="detail-subheader">Overview</h4>
+                <p>Electron configurations determine how atoms bond, crucial for JAMB questions on chemical reactivity and bond types.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Key Concepts</h4>
+                <ul class="detail-list">
+                    <li><strong>Ionic Bonding</strong>: Electron transfer between metals and non-metals (e.g., NaCl: Na loses 3s¹, Cl gains to 3p⁶).</li>
+                    <li><strong>Covalent Bonding</strong>: Electron sharing (e.g., H₂O: O shares 2p electrons with H).</li>
+                    <li><strong>Metallic Bonding</strong>: Delocalized electrons in metals (e.g., Cu: 4s¹ electrons form electron sea).</li>
+                    <li><strong>Valence Electrons</strong>: Outermost electrons determine bonding (e.g., Group 1: 1 valence electron, highly reactive).</li>
+                    <li><strong>Octet Rule</strong>: Atoms gain, lose, or share electrons to achieve 8 valence electrons.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Example</h4>
+                <p>Explain the bonding in HCl.</p>
+                <ul class="detail-list">
+                    <li><strong>Step 1</strong>: H (1s¹) and Cl (3s²3p⁵) share one electron pair.</li>
+                    <li><strong>Step 2</strong>: Forms a covalent bond, Cl achieves octet (3p⁶).</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Common JAMB Mistakes</h4>
+                <ul class="detail-list">
+                    <li><strong>Mistake</strong>: Thinking all bonds are ionic. <strong>Fix</strong>: Non-metals form covalent bonds (e.g., H₂, Cl₂).</li>
+                    <li><strong>Mistake</strong>: Ignoring valence electrons. <strong>Fix</strong>: Only outermost electrons participate in bonding.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">JAMB Tip</h4>
+                <p>Relate electron configurations to bond types. Practice predicting bonds for common compounds like NaCl, H₂O.</p>
+            </div>
+            <div class="detail-section">
+                <h4 class="detail-subheader">Fun Fact</h4>
+                <p>Diamond’s strength comes from covalent bonding—each carbon shares electrons in a 3D network!</p>
+            </div>
+            <div class="detail-section quiz-container" id="quiz-atomic-bonding">
+                <h4 class="detail-subheader">JAMB Practice Quiz</h4>
+                <div class="quiz-question">1. What type of bond is in NaCl?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) Covalent</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Ionic</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Metallic</label></div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Hydrogen</label></div>
+                </div>
+                <div class="quiz-question">2. How many valence electrons does chlorine have?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) 1</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) 5</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) 7</label></div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) 8</label></div>
+                </div>
+                <div class="quiz-question">3. What type of bond is in H₂?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) Ionic</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) Covalent</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) Metallic</label></div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) Van der Waals</label></div>
+                </div>
+                <div class="quiz-question">4. What drives metallic bonding?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>a) Electron transfer</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>b) Electron sharing</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>c) Delocalized electrons</label></div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>d) Nuclear forces</label></div>
+                </div>
+                <div class="quiz-question">5. What does the octet rule state?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>a) Atoms share protons</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>b) Atoms achieve 8 valence electrons</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>c) Atoms lose neutrons</label></div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>d) Atoms gain nuclei</label></div>
+                </div>
+                <button class="submit-quiz" onclick="checkQuiz('atomic-bonding', {q1: 'b', q2: 'c', q3: 'b', q4: 'c', q5: 'b'})">Submit Quiz</button>
+                <div class="quiz-result" id="result-atomic-bonding"></div>
+            </div>
+        `
+    }
+
+        };
+
+        // JavaScript functions for interactivity
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numStars = 100;
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 3}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 8}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const modeToggle = document.querySelector('.mode-toggle i');
+            if (body.dataset.theme === 'day') {
+                body.dataset.theme = 'night';
+                modeToggle.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                body.dataset.theme = 'day';
+                modeToggle.classList.replace('fa-moon', 'fa-sun');
+            }
+        }
+
+        function verifyPassword() {
+            const passwordInput = document.getElementById('passwordInput').value;
+            const passwordOverlay = document.getElementById('passwordOverlay');
+            const passwordError = document.getElementById('passwordError');
+            const mainContent = document.getElementById('mainContent');
+            const footer = document.getElementById('footer');
+            const correctPassword = 'AderinsolaAishat4'; // Example password
+
+            if (passwordInput === correctPassword) {
+                passwordOverlay.style.display = 'none';
+                mainContent.style.display = 'block';
+                footer.style.display = 'block';
+            } else {
+                passwordError.style.display = 'block';
+                passwordInput.value = '';
+            }
+        }
+
+function toggleDetail(knowledge) {
+    // Reset all quizzes when opening a new detail
+    document.querySelectorAll('.quiz-result').forEach(result => {
+        result.style.display = 'none';
+        result.textContent = '';
+    });
+    document.querySelectorAll('.quiz-option').forEach(option => {
+        option.classList.remove('correct', 'incorrect');
+    });
+    document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+
+    const overlay = document.getElementById('detailOverlay');
+    const title = document.getElementById('detailTitle');
+    const content = document.getElementById('detailContent');
+    const details = knowledgeDetails[knowledge];
+
+    if (details) {
+        title.textContent = details.title;
+        content.innerHTML = details.content;
+        overlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        setupQuizOptionListeners(); // Enable clickable quiz options
+    }
+}
+
+function closeDetail() {
+    const overlay = document.getElementById('detailOverlay');
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+    document.querySelectorAll('.quiz-result').forEach(result => {
+        result.style.display = 'none';
+        result.textContent = '';
+    });
+    document.querySelectorAll('.quiz-option').forEach(option => {
+        option.classList.remove('correct', 'incorrect');
+    });
+    document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+}
+
+function setupQuizOptionListeners() {
+    document.querySelectorAll('.quiz-option').forEach(option => {
+        option.addEventListener('click', (e) => {
+            const radio = option.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+            }
+        });
+    });
+}
+
+function checkQuiz(section, answers) {
+    const resultDiv = document.getElementById(`result-${section}`);
+    let score = 0;
+    const total = Object.keys(answers).length;
+
+    for (let q in answers) {
+        const options = document.querySelectorAll(`#quiz-${section} input[name="${q}"]`);
+        const selected = document.querySelector(`#quiz-${section} input[name="${q}"]:checked`);
+        options.forEach(option => {
+            const parent = option.parentElement;
+            parent.classList.remove('correct', 'incorrect');
+            if (option.value === answers[q]) {
+                parent.classList.add('correct');
+            } else if (selected && option === selected && option.value !== answers[q]) {
+                parent.classList.add('incorrect');
+            }
+        });
+        if (selected && selected.value === answers[q]) {
+            score++;
+        }
+    }
+
+    resultDiv.style.display = 'block';
+    resultDiv.textContent = `You scored ${score}/${total}! ${score === total ? 'Excellent work!' : 'Review the incorrect answers and try again!'}`;
+    resultDiv.className = `quiz-result ${score === total ? 'success' : 'error'}`;
+}
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
+            document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') verifyPassword();
+            });
+        });
+    </script>
+</body>
+</html>
